@@ -9,7 +9,7 @@ export const GET = async () => {
   return NextResponse.json({
     ok: true,
     rooms: DB.rooms,
-    totalRooms: 2,
+    totalRooms: rooms.length,
   });
 };
 
