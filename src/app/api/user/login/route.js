@@ -6,8 +6,11 @@ import { NextResponse } from "next/server";
 export const POST = async (request) => {
   readDB();
 
+  const body = await request.json();
+  const { username, password } = body;
+
   const user = DB.users.find(
-    (user) => user.username === username && user.passsword === passsword
+    (user) => user.username === username && user.password === password
   );
 
   if (!user) {
