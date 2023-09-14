@@ -9,7 +9,7 @@ export const GET = async () => {
   return NextResponse.json({
     ok: true,
     rooms: DB.rooms,
-    totalRooms: rooms.length,
+    totalRooms: DB.rooms.length,
   });
 };
 
@@ -18,7 +18,7 @@ export const POST = async (request) => {
 
   let role = null;
 
-  if (role === DB.roomName) {
+  if (role <= 0) {
     return NextResponse.json(
       {
         ok: false,
@@ -30,7 +30,7 @@ export const POST = async (request) => {
 
   readDB();
 
-  if (role != DB.roomName) {
+  if (role >= 0) {
     return NextResponse.json(
       {
         ok: false,
@@ -43,6 +43,7 @@ export const POST = async (request) => {
   const roomId = nanoid();
 
   //call writeDB after modifying Database
+  DB.rooms.push({ roomId, roomName });
   writeDB();
 
   return NextResponse.json({
